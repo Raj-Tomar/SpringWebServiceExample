@@ -2,13 +2,52 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" 
 	xmlns:util="http://www.springframework.org/schema/util" 
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
-	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
-  http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-  http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd
-  http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc 
+		http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util 
+		http://www.springframework.org/schema/util/spring-util.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx.xsd">
 
  	<context:component-scan base-package="com.raj.*"/>
+ 	
+ 	<context:property-placeholder location="classpath:hibernate.properties" />
 		
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	<property name="driverClassName" value="${jdbc.connection.driver_class}"></property>
+	<property name="url" value="${jdbc.connection.url}"></property>
+	<property name="username" value="${jdbc.connection.username}"></property>
+	<property name="password" value="${jdbc.connection.password}"></property>
+	</bean>
+ 
+    <bean id="sessionFactory"
+        class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="configLocation">
+            <value>classpath:hibernate.cfg.xml</value>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+                <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+                <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2dll.auto}</prop>
+            </props>
+        </property>
+    </bean>
+    
+    <tx:annotation-driven />
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+ 
+    <bean id="transactionManager"
+        class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>		
+
  </beans>
