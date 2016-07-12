@@ -3,6 +3,7 @@ package com.raj.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sun.istack.internal.logging.Logger;
 
 @RestController
 public class WebServiceController {
@@ -25,6 +25,7 @@ public class WebServiceController {
 		try {
 			result = new ResponseEntity<String>(str, HttpStatus.OK);
 		} catch (Exception e) {
+			logger.error("Exception: "+e.getMessage());
 			e.printStackTrace();
 		}
 		return result;
