@@ -47,31 +47,7 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="annotatedClasses">
 	  		<list>
-	   			<value>com.antelope.data.model.ItemCategoryBean</value>
-				<value>com.antelope.data.model.PostItemBean</value>
-				<value>com.antelope.data.model.ItemPhotosBeanBulk</value>
-				<value>com.antelope.data.model.ItemPhotosBean</value>
-				<!-- <value>com.antelope.data.model.ItemTagsBeanBulk</value>
-				<value>com.antelope.data.model.ItemTagsBean</value> -->
-				<value>com.antelope.data.model.UserLocationBean</value>
-				<value>com.antelope.data.model.PostReportBean</value>
-				<value>com.antelope.data.model.CsAlrtMsgBean</value>
-				<value>com.antelope.data.model.CategoryMasterBean</value>
-				<value>com.antelope.data.model.ReportCategoryBean</value>
-				<value>com.antelope.data.model.ReportTypeBean</value>
-				<value>com.antelope.data.model.ReportCommentsBean</value>
-				<value>com.antelope.data.model.DeliveryAddressBean</value>
-				<value>com.antelope.data.model.SoldItemBean</value>
-				<value>com.antelope.data.model.ChatRegBean</value>
-				<value>com.antelope.data.model.ChatAdjBean</value>
-				<value>com.antelope.data.model.UserChatRoomBean</value>
-				<value>com.antelope.data.model.UserChatBean</value>
-				<value>com.antelope.data.model.ItemHistoryBean</value>
-				<value>com.antelope.data.model.CountryBean</value>
-				<value>com.antelope.data.model.StateBean</value>
-				<value>com.antelope.data.model.DeliveryServicesMasterBean</value>
-				<value>com.antelope.data.model.UserIpAddress</value>
-				<value>com.antelope.data.model.UserActionsBean</value>
+	   			<value>com.raj</value>
 	  		</list>
  		</property>
 	 	
@@ -89,7 +65,7 @@
 			</props>
 		</property>
 	</bean>
-	<util:properties id="comprops" location="classpath:commonMsg.properties" />
+	<!-- <util:properties id="comprops" location="classpath:commonMsg.properties" /> -->
 
 	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
