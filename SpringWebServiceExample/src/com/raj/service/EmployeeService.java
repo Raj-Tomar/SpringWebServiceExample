@@ -9,7 +9,7 @@ import com.raj.beans.EmployeeBean;
 @Service
 public interface EmployeeService {
 
-	public String saveOrUpdateEmployee(EmployeeBean bean);
+	public String saveOrUpdateEmployee(String requestData);
 	public List<EmployeeBean> getEmployeeList();
 	public String getEmployeeById(Integer id);
 	public String updateEmployee(Integer id);
