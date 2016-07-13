@@ -8,12 +8,14 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
 import com.raj.beans.EmployeeBean;
 import com.raj.dao.EmployeeDao;
 
 @Repository
+@Scope(value = "prototype")
 public class EmployeeDaoImpl implements EmployeeDao{
 	
 	@Autowired
@@ -24,7 +26,7 @@ public class EmployeeDaoImpl implements EmployeeDao{
 	@Override
 	public String saveOrUpdateEmployee(EmployeeBean bean) {
 		try{
-			session = sessionFactory.getCurrentSession();
+			session = sessionFactory.openSession();
 			tx = session.beginTransaction();
 			if(null == bean.getId()){
 				session.save(bean);
@@ -46,10 +48,11 @@ public class EmployeeDaoImpl implements EmployeeDao{
 
 	@SuppressWarnings("unchecked")
 	@Override
+	//@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	public List<EmployeeBean> getEmployeeList() {
 		List<EmployeeBean> list = new ArrayList<EmployeeBean>();
 		try{
-			session = sessionFactory.getCurrentSession();
+			session = sessionFactory.openSession();
 			tx = session.beginTransaction();
 			Query<EmployeeBean> query = session.createQuery("From EmployeeBean");
 			list = query.getResultList();

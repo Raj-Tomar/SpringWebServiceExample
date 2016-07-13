@@ -1,6 +1,8 @@
 package com.raj.controller;
 
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.raj.beans.EmployeeBean;
 import com.raj.service.EmployeeService;
 
 
@@ -46,6 +49,20 @@ public class WebServiceController {
 		try {
 			String status = employeeService.saveOrUpdateEmployee(requestData);
 			result = new ResponseEntity<String>(status, HttpStatus.OK);
+		} catch (Exception e) {
+			logger.error("Exception: "+e.getMessage());
+		}
+		return result;
+	}
+	
+	@RequestMapping(value="/getAllEmployee", method=RequestMethod.POST, consumes="application/json", produces="applicatin/json")
+	@ResponseBody
+	public ResponseEntity<String> getAllEmployee(@RequestBody String requestData){
+		logger.info("getAllEmployee in controller");
+		ResponseEntity<String> result = null;
+		try {
+			List<EmployeeBean> list = employeeService.getEmployeeList();
+			result = new ResponseEntity<String>(list.toString(), HttpStatus.OK);
 		} catch (Exception e) {
 			logger.error("Exception: "+e.getMessage());
 		}

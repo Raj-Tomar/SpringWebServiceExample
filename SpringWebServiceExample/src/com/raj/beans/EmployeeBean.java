@@ -26,6 +26,9 @@ public class EmployeeBean {
 	
 	@Column(name="companyname")
 	private String companyName;
+	
+	@Column(name="age")
+	private String age;
 
 	public Integer getId() {
 		return id;
@@ -65,6 +68,14 @@ public class EmployeeBean {
 
 	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
+	}
+
+	public String getAge() {
+		return age;
+	}
+
+	public void setAge(String age) {
+		this.age = age;
 	}
 	
 }
