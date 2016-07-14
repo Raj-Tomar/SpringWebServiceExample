@@ -3,6 +3,7 @@ package com.raj.serviceImpl;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 	
 	@Autowired
 	EmployeeDao employeeDao;
+	JSONObject requestJson = null;
 	
 	private static Logger logger = Logger.getLogger(EmployeeServiceImpl.class);
 
@@ -24,6 +26,8 @@ public class EmployeeServiceImpl implements EmployeeService{
 	public String saveOrUpdateEmployee(String requestData) {
 		logger.info("saveOrUpdateEmployee in ServiceImpl");
 		try {
+			requestJson = new JSONObject(requestData);
+			logger.info("Requested Data: "+requestJson.toString());
 			logger.info("Request Data: "+requestData);
 		} catch (Exception e) {
 			logger.error("Exception: "+e.getMessage());
