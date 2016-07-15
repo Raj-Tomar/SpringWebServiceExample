@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.raj.beans.EmployeeBean;
 import com.raj.dao.EmployeeDao;
+import com.raj.dto.KeyValueDto;
 import com.raj.service.EmployeeService;
 
 @Service
@@ -17,8 +18,9 @@ import com.raj.service.EmployeeService;
 public class EmployeeServiceImpl implements EmployeeService{
 	
 	@Autowired
-	EmployeeDao employeeDao;
-	JSONObject requestJson = null;
+	private EmployeeDao employeeDao;
+	private JSONObject requestJson = null;
+	private JSONObject responseJson = null;
 	
 	private static Logger logger = Logger.getLogger(EmployeeServiceImpl.class);
 
@@ -36,16 +38,25 @@ public class EmployeeServiceImpl implements EmployeeService{
 	}
 
 	@Override
-	public List<EmployeeBean> getEmployeeList() {
-		logger.info("saveOrUpdateEmployee in ServiceImpl");
+	public String getEmployeeList() {
+		String status = "0";
 		List<EmployeeBean> list = null;
 		try {
-			list = employeeDao.getEmployeeList();  
+			list = employeeDao.getEmployeeList();
+			responseJson = new JSONObject();
+			if(list.size() > 0){
+				status = "1";
+				responseJson.put("status",status);
+				responseJson.put("empList",list);
+			}
+			else{
+				responseJson.put("status",status);
+			}
 		} catch (Exception e) {
 			logger.error("Exception: "+e.getMessage());
 			e.printStackTrace();
 		}
-		return list;
+		return responseJson.toString();
 	}
 
 	@Override
@@ -56,6 +67,27 @@ public class EmployeeServiceImpl implements EmployeeService{
 	@Override
 	public String updateEmployee(Integer id) {
 		return null;
+	}
+
+	@Override
+	public String googlePieChart(String requestData) {
+		String status = "0";
+		List<KeyValueDto> list = null;
+		try {
+			list = employeeDao.googlePieChart(requestData);
+			responseJson = new JSONObject();
+			if(list.size() > 0){
+				status = "1";
+				responseJson.put("status", status);
+				responseJson.put("keyValue", list);
+			}
+			else{
+				responseJson.put("status", status);
+			}
+		} catch (Exception e) {
+			logger.error("Exception: "+e.getMessage());
+		}
+		return responseJson.toString();
 	}
 
 }

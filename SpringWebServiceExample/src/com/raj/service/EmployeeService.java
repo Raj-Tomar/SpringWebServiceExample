@@ -1,18 +1,34 @@
 package com.raj.service;
 
-import java.util.List;
-
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
-
-import com.raj.beans.EmployeeBean;
 
 @Service
 @Scope(value = "prototype")
 public interface EmployeeService {
 
+	/**
+	 * @param requestData
+	 * @return
+	 */
 	public String saveOrUpdateEmployee(String requestData);
-	public List<EmployeeBean> getEmployeeList();
+	/**
+	 * @return
+	 */
+	public String getEmployeeList();
+	/**
+	 * @param id
+	 * @return
+	 */
 	public String getEmployeeById(Integer id);
+	/**
+	 * @param id
+	 * @return
+	 */
 	public String updateEmployee(Integer id);
+	/**
+	 * @param requestData
+	 * @return
+	 */
+	public String googlePieChart(String requestData);
 }

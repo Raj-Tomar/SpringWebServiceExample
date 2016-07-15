@@ -3,6 +3,7 @@ package com.raj.daoImpl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -13,29 +14,39 @@ import org.springframework.stereotype.Repository;
 
 import com.raj.beans.EmployeeBean;
 import com.raj.dao.EmployeeDao;
+import com.raj.dto.KeyValueDto;
 
 @Repository
 @Scope(value = "prototype")
 public class EmployeeDaoImpl implements EmployeeDao{
 	
 	@Autowired
-	SessionFactory sessionFactory;
+	private SessionFactory sessionFactory;
 	private Session session = null;
 	private Transaction tx = null;
+	
+	private static Logger LOGGER = Logger.getLogger(EmployeeDaoImpl.class);
 
 	@Override
 	public String saveOrUpdateEmployee(EmployeeBean bean) {
+		String status = "0";
 		try{
 			session = sessionFactory.openSession();
 			tx = session.beginTransaction();
 			if(null == bean.getId()){
 				session.save(bean);
+				tx.commit();
+				status = "1";
+				LOGGER.info("Employee Save Status: "+status);
 			}else{
 				session.update(bean);
+				tx.commit();
+				status = "1";
+				LOGGER.info("Employee Update Status: "+status);
 			}
-			tx.commit();
 		}
 		catch(Exception e){
+			tx.rollback();
 			e.printStackTrace();
 		}
 		finally{
@@ -43,7 +54,7 @@ public class EmployeeDaoImpl implements EmployeeDao{
 				session.close();
 			}
 		}
-		return null;
+		return status;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -69,13 +80,56 @@ public class EmployeeDaoImpl implements EmployeeDao{
 	}
 
 	@Override
-	public String getEmployeeById(Integer id) {
-		return null;
+	public EmployeeBean getEmployeeById(Integer id) {
+		EmployeeBean bean = null;
+		try {
+			session = sessionFactory.openSession();
+			tx = session.beginTransaction();
+			bean = session.get(EmployeeBean.class, id);
+		} 
+		catch (Exception e) {
+			LOGGER.error("Exception: "+e.getMessage());
+		}
+		finally {
+			if(session.isOpen()){
+				session.close();
+			}
+		}
+		return bean;
 	}
 
 	@Override
-	public String updateEmployee(Integer id) {
-		return null;
+	public String deleteEmployee(Integer id) {
+		String status = "0";
+		try {
+			session = sessionFactory.openSession();
+			tx = session.beginTransaction();
+			EmployeeBean bean = session.get(EmployeeBean.class, id);
+			if(null != bean){
+				session.delete(bean);
+				status = "1";
+			}
+		} catch (Exception e) {
+			LOGGER.error("Exception: "+e.getMessage());
+		}
+		return status;
+	}
+
+	@Override
+	public List<KeyValueDto> googlePieChart(String requestData) {
+		List<KeyValueDto> list = new ArrayList<KeyValueDto>();
+		try {
+			list.add(new KeyValueDto("Russia", "17098242"));
+			list.add(new KeyValueDto("Canada", "9984670"));
+			list.add(new KeyValueDto("USA", "9826675"));
+			list.add(new KeyValueDto("China", "9596961"));
+			list.add(new KeyValueDto("Brazil", "8514877"));
+			list.add(new KeyValueDto("Australia", "7741220"));
+			list.add(new KeyValueDto("India", "3287263"));
+		} catch (Exception e) {
+			LOGGER.error("Exception: "+e.getMessage());
+		}
+		return list;
 	}
 
 }

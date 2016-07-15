@@ -1,8 +1,6 @@
 package com.raj.controller;
 
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.raj.beans.EmployeeBean;
 import com.raj.service.EmployeeService;
 
 
@@ -61,8 +58,22 @@ public class WebServiceController {
 		logger.info("getAllEmployee in controller");
 		ResponseEntity<String> result = null;
 		try {
-			List<EmployeeBean> list = employeeService.getEmployeeList();
-			result = new ResponseEntity<String>(list.toString(), HttpStatus.OK);
+			String status = employeeService.getEmployeeList();
+			result = new ResponseEntity<String>(status, HttpStatus.OK);
+		} catch (Exception e) {
+			logger.error("Exception: "+e.getMessage());
+		}
+		return result;
+	}
+	
+	
+	@RequestMapping(value="/googlePieChart", method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<String> googlePieChart(@RequestBody String requestData){
+		ResponseEntity<String> result = null;
+		try {
+			String status = employeeService.googlePieChart(requestData);
+			result = new ResponseEntity<String>(status, HttpStatus.OK);
 		} catch (Exception e) {
 			logger.error("Exception: "+e.getMessage());
 		}
