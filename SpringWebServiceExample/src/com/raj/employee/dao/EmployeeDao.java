@@ -1,4 +1,4 @@
-package com.raj.dao;
+package com.raj.employee.dao;
 
 import java.util.List;
 
@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
 import com.raj.beans.EmployeeBean;
-import com.raj.dto.KeyValueDto;
 
 @Repository
 @Scope(value = "prototype")
@@ -32,10 +31,5 @@ public interface EmployeeDao {
 	 * @return
 	 */
 	public String deleteEmployee(Integer id);
-	/**
-	 * @param requestData
-	 * @return
-	 */
-	public List<KeyValueDto> googlePieChart(String requestData);
 	
 }

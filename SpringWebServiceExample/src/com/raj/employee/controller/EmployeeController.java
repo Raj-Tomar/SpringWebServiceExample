@@ -1,4 +1,4 @@
-package com.raj.controller;
+package com.raj.employee.controller;
 
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,16 +13,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.raj.service.EmployeeService;
+import com.raj.employee.service.EmployeeService;
 
 
 @RestController
-public class WebServiceController {
+public class EmployeeController {
 	
 	@Autowired
 	EmployeeService employeeService;
 	
-	private static Logger logger = Logger.getLogger(WebServiceController.class);
+	private static Logger logger = Logger.getLogger(EmployeeController.class);
 	
 	@RequestMapping(value = "/testUrl", method=RequestMethod.POST, consumes = "application/json", produces = "application/json")
 	@ResponseBody
@@ -38,7 +38,7 @@ public class WebServiceController {
 		return result;
 	}
 	
-	@RequestMapping(value="/saveOrUpdateEmployee", method=RequestMethod.POST, consumes="application/json", produces="applicatin/json")
+	@RequestMapping(value="/saveOrUpdateEmployee", method=RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<String> saveOrUpdateEmployee(@RequestBody String requestData){
 		logger.info("saveOrUpdateEmployee in controller");
@@ -52,13 +52,13 @@ public class WebServiceController {
 		return result;
 	}
 	
-	@RequestMapping(value="/getAllEmployee", method=RequestMethod.POST, consumes="application/json", produces="applicatin/json")
+	@RequestMapping(value="/getAllEmployee", method=RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<String> getAllEmployee(@RequestBody String requestData){
 		logger.info("getAllEmployee in controller");
 		ResponseEntity<String> result = null;
 		try {
-			String status = employeeService.getEmployeeList();
+			String status = employeeService.getEmployeeList(requestData);
 			result = new ResponseEntity<String>(status, HttpStatus.OK);
 		} catch (Exception e) {
 			logger.error("Exception: "+e.getMessage());
@@ -67,16 +67,30 @@ public class WebServiceController {
 	}
 	
 	
-	@RequestMapping(value="/googlePieChart", method=RequestMethod.POST)
+	@RequestMapping(value="/getEmployeeById", method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<String> googlePieChart(@RequestBody String requestData){
+	public ResponseEntity<String> getEmployeeById(@RequestBody String requestData){
 		ResponseEntity<String> result = null;
 		try {
-			String status = employeeService.googlePieChart(requestData);
+			String status = employeeService.getEmployeeById(requestData);
 			result = new ResponseEntity<String>(status, HttpStatus.OK);
 		} catch (Exception e) {
 			logger.error("Exception: "+e.getMessage());
 		}
 		return result;
 	}
+	
+	@RequestMapping(value="/deleteEmployee", method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<String> deleteEmployee(@RequestBody String requestData){
+		ResponseEntity<String> result = null;
+		try {
+			String status = employeeService.deleteEmployee(requestData);
+			result = new ResponseEntity<String>(status, HttpStatus.OK);
+		} catch (Exception e) {
+			logger.error("Exception: "+e.getMessage());
+		}
+		return result;
+	}
+	
 }

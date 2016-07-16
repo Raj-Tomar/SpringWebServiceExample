@@ -1,4 +1,4 @@
-package com.raj.serviceImpl;
+package com.raj.employee.serviceImpl;
 
 import java.util.List;
 
@@ -8,10 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import com.google.gson.Gson;
 import com.raj.beans.EmployeeBean;
-import com.raj.dao.EmployeeDao;
-import com.raj.dto.KeyValueDto;
-import com.raj.service.EmployeeService;
+import com.raj.employee.dao.EmployeeDao;
+import com.raj.employee.service.EmployeeService;
 
 @Service
 @Scope(value = "prototype")
@@ -21,6 +21,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 	private EmployeeDao employeeDao;
 	private JSONObject requestJson = null;
 	private JSONObject responseJson = null;
+	private Gson gson = null;
 	
 	private static Logger logger = Logger.getLogger(EmployeeServiceImpl.class);
 
@@ -29,16 +30,20 @@ public class EmployeeServiceImpl implements EmployeeService{
 		logger.info("saveOrUpdateEmployee in ServiceImpl");
 		try {
 			requestJson = new JSONObject(requestData);
-			logger.info("Requested Data: "+requestJson.toString());
-			logger.info("Request Data: "+requestData);
+			JSONObject jObj = requestJson.getJSONObject("emp");
+			gson = new Gson();
+			EmployeeBean bean = gson.fromJson(jObj.toString(), EmployeeBean.class);
+			String status = employeeDao.saveOrUpdateEmployee(bean);
+			responseJson = new JSONObject();
+			responseJson.put("status", status);
 		} catch (Exception e) {
 			logger.error("Exception: "+e.getMessage());
 		}
-		return null;
+		return responseJson.toString();
 	}
 
 	@Override
-	public String getEmployeeList() {
+	public String getEmployeeList(String requestData) {
 		String status = "0";
 		List<EmployeeBean> list = null;
 		try {
@@ -60,30 +65,39 @@ public class EmployeeServiceImpl implements EmployeeService{
 	}
 
 	@Override
-	public String getEmployeeById(Integer id) {
-		return null;
-	}
-
-	@Override
-	public String updateEmployee(Integer id) {
-		return null;
-	}
-
-	@Override
-	public String googlePieChart(String requestData) {
+	public String getEmployeeById(String requestData) {
 		String status = "0";
-		List<KeyValueDto> list = null;
 		try {
-			list = employeeDao.googlePieChart(requestData);
+			requestJson = new JSONObject(requestData);
+			String empId = requestJson.getJSONObject("empId").toString();
+			Integer id = Integer.parseInt(empId);
+			EmployeeBean bean = employeeDao.getEmployeeById(id);
 			responseJson = new JSONObject();
-			if(list.size() > 0){
+			if(null != bean){
 				status = "1";
 				responseJson.put("status", status);
-				responseJson.put("keyValue", list);
+				responseJson.put("emp", bean);
 			}
 			else{
 				responseJson.put("status", status);
 			}
+			logger.info("getEmployeeById Status: "+status);
+		} catch (Exception e) {
+			logger.error("Exception: "+e.getMessage());
+		}
+		return responseJson.toString();
+	}
+
+	@Override
+	public String deleteEmployee(String requestData) {
+		try {
+			logger.info("deleteEmployee: "+requestData);
+			requestJson = new JSONObject(requestData);
+			String empId = requestJson.getString("empId");
+			Integer id = Integer.parseInt(empId);
+			String status = employeeDao.deleteEmployee(id);
+			responseJson = new JSONObject();
+			responseJson.put("status", status);
 		} catch (Exception e) {
 			logger.error("Exception: "+e.getMessage());
 		}

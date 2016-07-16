@@ -1,4 +1,4 @@
-package com.raj.service;
+package com.raj.employee.service;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -15,20 +15,16 @@ public interface EmployeeService {
 	/**
 	 * @return
 	 */
-	public String getEmployeeList();
+	public String getEmployeeList(String requestData);
 	/**
 	 * @param id
 	 * @return
 	 */
-	public String getEmployeeById(Integer id);
+	public String getEmployeeById(String requestData);
 	/**
 	 * @param id
 	 * @return
 	 */
-	public String updateEmployee(Integer id);
-	/**
-	 * @param requestData
-	 * @return
-	 */
-	public String googlePieChart(String requestData);
+	public String deleteEmployee(String requestData);
+	
 }
