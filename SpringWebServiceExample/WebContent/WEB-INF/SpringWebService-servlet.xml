@@ -19,6 +19,13 @@
  	<context:component-scan base-package="com.raj.*"/>
  	
  	<context:property-placeholder location="classpath:hibernate.properties" />
+ 	<!-- 
+ 	<bean id="propertyConfigurer" class="com.raj.util.PropertyFileConfigurer"
+		scope="singleton" lazy-init="false">
+		<property name="fileName" value="hibernate.properties" />
+		
+	</bean>
+ 	 -->
 		
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 	<property name="driverClassName" value="${jdbc.connection.driver_class}"></property>
