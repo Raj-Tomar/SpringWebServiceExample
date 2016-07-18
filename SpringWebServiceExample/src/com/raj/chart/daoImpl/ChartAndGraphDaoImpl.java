@@ -70,7 +70,8 @@ public class ChartAndGraphDaoImpl implements ChartAndGraphDao{
 		List<CityBean> list = new ArrayList<CityBean>();
 		try {
 			session = sessionFactory.openSession();
-			Query<CityBean> query = session.createQuery("Select name, district, population From CityBean where countryCode=?");
+			//Query<CityBean> query = session.createQuery("Select name, district, population From CityBean where countryCode=?");
+			Query<CityBean> query = session.createQuery("From CityBean where countryCode=?");
 			query.setParameter(0, countryCode);
 			list = query.getResultList();;
 			LOGGER.info("Total Cities: "+list.size());
