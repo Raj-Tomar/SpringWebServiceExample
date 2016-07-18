@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
+import com.raj.beans.CityBean;
 import com.raj.dto.KeyValueDto;
 
 @Repository
@@ -15,5 +16,17 @@ public interface ChartAndGraphDao {
 	 * @param requestData
 	 * @return
 	 */
-	public List<KeyValueDto> googlePieChart(String requestData);
+	public List<KeyValueDto> areaWiseCountries(String requestData);
+
+	/**
+	 * @param requestData
+	 * @return
+	 */
+	public List<String> getAllCountryCode(String requestData);
+	
+	/**
+	 * @param countryCode
+	 * @return
+	 */
+	public List<CityBean> cityWisePopulation(String countryCode);
 }

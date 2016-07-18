@@ -20,16 +20,43 @@ public class ChartAndGraphController {
 	
 	private static Logger LOGGER = Logger.getLogger(ChartAndGraphController.class);
 	
-	@RequestMapping(value="/googlePieChart", method=RequestMethod.POST)
+	@RequestMapping(value="/areaWiseCountries", method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<String> googlePieChart(@RequestBody String requestData){
+	public ResponseEntity<String> areaWiseCountries(@RequestBody String requestData){
 		ResponseEntity<String> result = null;
 		try {
-			String status = chartService.googlePieChart(requestData);
+			String status = chartService.areaWiseCountries(requestData);
 			result = new ResponseEntity<String>(status, HttpStatus.OK);
 		} catch (Exception e) {
 			LOGGER.error("Exception: "+e.getMessage());
 		}
 		return result;
 	}
+	
+	@RequestMapping(value="/getAllCountryCode", method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<String> getAllCountryCode(@RequestBody String requestData){
+		ResponseEntity<String> result = null;
+		try {
+			String status = chartService.getAllCountryCode(requestData);
+			result = new ResponseEntity<String>(status, HttpStatus.OK);
+		} catch (Exception e) {
+			LOGGER.error("Exception: "+e.getMessage());
+		}
+		return result;
+	}
+	
+	@RequestMapping(value="/cityWisePopulation", method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<String> cityWisePopulation(@RequestBody String requestData){
+		ResponseEntity<String> result = null;
+		try {
+			String status = chartService.cityWisePopulation(requestData);
+			result = new ResponseEntity<String>(status, HttpStatus.OK);
+		} catch (Exception e) {
+			LOGGER.error("Exception: "+e.getMessage());
+		}
+		return result;
+	}
+	
 }

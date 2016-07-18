@@ -11,5 +11,17 @@ public interface ChartAndGraphService {
 	 * @param requestData
 	 * @return
 	 */
-	public String googlePieChart(String requestData);
+	public String areaWiseCountries(String requestData);
+	
+	/**
+	 * @param requestData
+	 * @return
+	 */
+	public String getAllCountryCode(String requestData);
+
+	/**
+	 * @param requestData
+	 * @return
+	 */
+	public String cityWisePopulation(String requestData);
 }
