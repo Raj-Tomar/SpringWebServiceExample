@@ -49,8 +49,8 @@ public class ChartAndGraphDaoImpl implements ChartAndGraphDao{
 		List<String> list = new ArrayList<String>();
 		try {
 			session = sessionFactory.openSession();
-			Query<String> query = session.createQuery("Select distinct countryCode From CityBean");
-			list = query.getResultList();;
+			Query<String> query = session.createQuery("Select code From CountryBean");
+			list = query.getResultList();
 			LOGGER.info("Total Country Codes: "+list.size());
 		} 
 		catch (Exception e) {

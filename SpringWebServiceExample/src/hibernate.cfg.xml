@@ -6,6 +6,7 @@
 <hibernate-configuration>
     <session-factory>
         <mapping class="com.raj.beans.EmployeeBean" />
+        <mapping class="com.raj.beans.CountryBean" />
         <mapping class="com.raj.beans.CityBean" />
     </session-factory>
         
