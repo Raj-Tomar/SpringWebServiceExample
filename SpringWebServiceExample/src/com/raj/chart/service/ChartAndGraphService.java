@@ -24,4 +24,16 @@ public interface ChartAndGraphService {
 	 * @return
 	 */
 	public String cityWisePopulation(String requestData);
+
+	/**
+	 * @param requestData
+	 * @return
+	 */
+	public String getStateNames(String requestData);
+
+	/**
+	 * @param requestData
+	 * @return
+	 */
+	public String stateWisePopulation(String requestData);
 }

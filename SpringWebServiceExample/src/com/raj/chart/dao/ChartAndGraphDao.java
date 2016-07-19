@@ -29,4 +29,16 @@ public interface ChartAndGraphDao {
 	 * @return
 	 */
 	public List<CityBean> cityWisePopulation(String countryCode);
+
+	/**
+	 * @param requestData
+	 * @return
+	 */
+	public List<String> getStateNames(String requestData);
+
+	/**
+	 * @param stateName
+	 * @return
+	 */
+	public List<CityBean> stateWisePopulation(String stateName);
 }

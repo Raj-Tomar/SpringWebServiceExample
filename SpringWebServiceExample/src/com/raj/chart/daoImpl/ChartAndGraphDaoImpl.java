@@ -74,7 +74,52 @@ public class ChartAndGraphDaoImpl implements ChartAndGraphDao{
 			Query<CityBean> query = session.createQuery("From CityBean where countryCode=?");
 			query.setParameter(0, countryCode);
 			list = query.getResultList();;
-			LOGGER.info("Total Cities: "+list.size());
+			LOGGER.info("Total Cities In selected Country: "+list.size());
+		} 
+		catch (Exception e) {
+			LOGGER.error("Exception: "+e.getMessage());
+		}
+		finally {
+			if(session.isOpen()){
+				session.close();
+			}
+		}
+		return list;
+	}
+
+	@SuppressWarnings({ "unchecked" })
+	@Override
+	public List<String> getStateNames(String requestData) {
+		List<String> list = new ArrayList<String>();
+		try {
+			session = sessionFactory.openSession();
+			Query<String> query = session.createQuery("Select distinct district From CityBean");
+			//Query<String> query = session.createSQLQuery("SELECT DISTINCT CONVERT(district USING utf8) FROM city");
+			list = query.getResultList();;
+			LOGGER.info("Total District: "+list.size());
+		} 
+		catch (Exception e) {
+			LOGGER.error("Exception: "+e.getMessage());
+		}
+		finally {
+			if(session.isOpen()){
+				session.close();
+			}
+		}
+		return list;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<CityBean> stateWisePopulation(String stateName) {
+		List<CityBean> list = new ArrayList<CityBean>();
+		try {
+			session = sessionFactory.openSession();
+			//Query<CityBean> query = session.createQuery("Select name, district, population From CityBean where countryCode=?");
+			Query<CityBean> query = session.createQuery("From CityBean where district=?");
+			query.setParameter(0, stateName);
+			list = query.getResultList();;
+			LOGGER.info("Total Cities In Selected District: "+list.size());
 		} 
 		catch (Exception e) {
 			LOGGER.error("Exception: "+e.getMessage());

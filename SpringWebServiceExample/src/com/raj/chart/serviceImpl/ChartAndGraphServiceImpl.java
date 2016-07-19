@@ -95,4 +95,52 @@ public class ChartAndGraphServiceImpl implements ChartAndGraphService{
 		return responseJson.toString();
 	}
 
+	@Override
+	public String getStateNames(String requestData) {
+		String status = "0";
+		List<String> list = null;
+		try {
+			requestJson = new JSONObject(requestData);
+			LOGGER.info("RequestData: "+requestJson.toString());
+			list = chartDao.getStateNames(requestData);
+			responseJson = new JSONObject();
+			if(list.size() > 0){
+				status = "1";
+				responseJson.put("status", status);
+				responseJson.put("stateNames", list);
+			}
+			else{
+				responseJson.put("status", status);
+			}
+		} catch (Exception e) {
+			LOGGER.error("Exception: "+e.getMessage());
+		}
+		return responseJson.toString();
+	}
+
+	@Override
+	public String stateWisePopulation(String requestData) {
+		String status = "0";
+		List<CityBean> list = null;
+		try {
+			requestJson = new JSONObject(requestData);
+			LOGGER.info("RequestData: "+requestJson.toString());
+			JSONObject jObj = requestJson.getJSONObject("requestData");
+			String stateName = jObj.getString("stateName");
+			list = chartDao.stateWisePopulation(stateName);
+			responseJson = new JSONObject();
+			if(list.size() > 0){
+				status = "1";
+				responseJson.put("status", status);
+				responseJson.put("statePopulation", list);
+			}
+			else{
+				responseJson.put("status", status);
+			}
+		} catch (Exception e) {
+			LOGGER.error("Exception: "+e.getMessage());
+		}
+		return responseJson.toString();
+	}
+
 }

@@ -59,4 +59,29 @@ public class ChartAndGraphController {
 		return result;
 	}
 	
+	@RequestMapping(value="/getStateNames", method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<String> getStateNames(@RequestBody String requestData){
+		ResponseEntity<String> result = null;
+		try {
+			String status = chartService.getStateNames(requestData);
+			result = new ResponseEntity<String>(status, HttpStatus.OK);
+		} catch (Exception e) {
+			LOGGER.error("Exception: "+e.getMessage());
+		}
+		return result;
+	}
+	
+	@RequestMapping(value="/stateWisePopulation", method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<String> stateWisePopulation(@RequestBody String requestData){
+		ResponseEntity<String> result = null;
+		try {
+			String status = chartService.stateWisePopulation(requestData);
+			result = new ResponseEntity<String>(status, HttpStatus.OK);
+		} catch (Exception e) {
+			LOGGER.error("Exception: "+e.getMessage());
+		}
+		return result;
+	}
 }
