@@ -36,6 +36,9 @@ public class EmployeeBean implements Serializable{
 	
 	@Column(name="age")
 	private String age;
+	
+	@Column(name="status")
+	private String status;
 
 	public Integer getId() {
 		return id;
@@ -84,5 +87,13 @@ public class EmployeeBean implements Serializable{
 	public void setAge(String age) {
 		this.age = age;
 	}
-	
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 }

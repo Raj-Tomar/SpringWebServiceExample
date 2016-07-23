@@ -106,9 +106,11 @@ public class EmployeeDaoImpl implements EmployeeDao{
 			EmployeeBean bean = session.get(EmployeeBean.class, id);
 			if(null != bean){
 				session.delete(bean);
+				tx.commit();
 				status = "1";
 			}
 		} catch (Exception e) {
+			tx.rollback();
 			LOGGER.error("Exception: "+e.getMessage());
 		}
 		return status;

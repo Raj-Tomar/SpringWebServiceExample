@@ -30,13 +30,14 @@ public class EmployeeServiceImpl implements EmployeeService{
 		logger.info("saveOrUpdateEmployee in ServiceImpl");
 		try {
 			requestJson = new JSONObject(requestData);
-			JSONObject jObj = requestJson.getJSONObject("emp");
+			JSONObject jObj = requestJson.getJSONObject("requestData");
 			gson = new Gson();
-			EmployeeBean bean = gson.fromJson(jObj.toString(), EmployeeBean.class);
+			EmployeeBean bean = gson.fromJson(jObj.get("emp").toString(), EmployeeBean.class);
 			String status = employeeDao.saveOrUpdateEmployee(bean);
 			responseJson = new JSONObject();
 			responseJson.put("status", status);
 		} catch (Exception e) {
+			e.printStackTrace();
 			logger.error("Exception: "+e.getMessage());
 		}
 		return responseJson.toString();
@@ -68,21 +69,24 @@ public class EmployeeServiceImpl implements EmployeeService{
 	public String getEmployeeById(String requestData) {
 		String status = "0";
 		try {
+			logger.info(requestData);
 			requestJson = new JSONObject(requestData);
-			String empId = requestJson.getJSONObject("empId").toString();
+			JSONObject jObj = requestJson.getJSONObject("requestData");
+			String empId = jObj.get("empId").toString();
 			Integer id = Integer.parseInt(empId);
 			EmployeeBean bean = employeeDao.getEmployeeById(id);
 			responseJson = new JSONObject();
 			if(null != bean){
 				status = "1";
+				gson = new Gson();
 				responseJson.put("status", status);
-				responseJson.put("emp", bean);
+				responseJson.put("emp", gson.toJson(bean));
 			}
 			else{
 				responseJson.put("status", status);
 			}
-			logger.info("getEmployeeById Status: "+status);
 		} catch (Exception e) {
+			e.printStackTrace();
 			logger.error("Exception: "+e.getMessage());
 		}
 		return responseJson.toString();
@@ -93,7 +97,8 @@ public class EmployeeServiceImpl implements EmployeeService{
 		try {
 			logger.info("deleteEmployee: "+requestData);
 			requestJson = new JSONObject(requestData);
-			String empId = requestJson.getString("empId");
+			JSONObject jObj = requestJson.getJSONObject("requestData");
+			String empId = jObj.get("empId").toString();
 			Integer id = Integer.parseInt(empId);
 			String status = employeeDao.deleteEmployee(id);
 			responseJson = new JSONObject();
