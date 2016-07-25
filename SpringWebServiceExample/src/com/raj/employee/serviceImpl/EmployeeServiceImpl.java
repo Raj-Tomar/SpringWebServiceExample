@@ -78,9 +78,8 @@ public class EmployeeServiceImpl implements EmployeeService{
 			responseJson = new JSONObject();
 			if(null != bean){
 				status = "1";
-				gson = new Gson();
 				responseJson.put("status", status);
-				responseJson.put("emp", gson.toJson(bean));
+				responseJson.put("emp", new JSONObject(bean));
 			}
 			else{
 				responseJson.put("status", status);
