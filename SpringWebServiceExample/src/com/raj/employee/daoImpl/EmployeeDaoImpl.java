@@ -21,8 +21,8 @@ public class EmployeeDaoImpl implements EmployeeDao{
 	
 	@Autowired
 	private SessionFactory sessionFactory;
-	private Session session = null;
-	private Transaction tx = null;
+	private Session session;
+	private Transaction tx;
 	
 	private static Logger LOGGER = Logger.getLogger(EmployeeDaoImpl.class);
 
