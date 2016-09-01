@@ -3,11 +3,14 @@ package com.raj.employee.daoImpl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
@@ -56,7 +59,6 @@ public class EmployeeDaoImpl implements EmployeeDao{
 		return status;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	//@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	public List<EmployeeBean> getEmployeeList() {
@@ -64,8 +66,20 @@ public class EmployeeDaoImpl implements EmployeeDao{
 		try{
 			session = sessionFactory.openSession();
 			tx = session.beginTransaction();
-			Query<EmployeeBean> query = session.createQuery("From EmployeeBean");
-			list = query.getResultList();
+			
+			// Hibernate 5.2 Criteria
+			CriteriaBuilder builder = session.getCriteriaBuilder();
+
+			CriteriaQuery<EmployeeBean> criteria = builder.createQuery( EmployeeBean.class );
+			Root<EmployeeBean> root = criteria.from( EmployeeBean.class );
+			criteria.select( root );
+			//criteria.where( builder.equal( root.get( EmployeeBean.name ), "John Doe" ) );
+
+			list = session.createQuery( criteria ).getResultList();
+			
+			LOGGER.info("Total Employees: "+list.size());
+			//Query<EmployeeBean> query = session.createQuery("From EmployeeBean");
+			//list = query.getResultList();
 		}
 		catch(Exception e){
 			e.printStackTrace();
