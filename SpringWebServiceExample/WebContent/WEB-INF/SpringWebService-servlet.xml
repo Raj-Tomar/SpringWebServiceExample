@@ -65,20 +65,21 @@
      -->
      
      <!-- Connection Pooling Configuration Starts-->
-     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
-		destroy-method="close">
+     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+     	<!-- Database Connection -->
 		<property name="driverClass" value="${jdbc.connection.driver_class}" />
 		<property name="jdbcUrl" value="${jdbc.connection.url}" />
 		<property name="user" value="${jdbc.connection.username}"></property>
 		<property name="password" value="${jdbc.connection.password}"></property>
 		
-		<property name="initialPoolSize" value="${hibernate.c3p0.initialPoolSize}"></property>
+		<!-- Connection Pooling -->
+		<property name="acquireIncrement" value="${hibernate.c3p0.acquire_increment}"></property>
 		<property name="minPoolSize" value="${hibernate.c3p0.min_size}"></property>
 		<property name="maxPoolSize" value="${hibernate.c3p0.max_size}"></property>
-		<property name="acquireIncrement" value="${hibernate.c3p0.acquire_increment}"></property>
 		<property name="idleConnectionTestPeriod" value="${hibernate.c3p0.idle_test_period}"></property>
+		<property name="initialPoolSize" value="${hibernate.c3p0.initialPoolSize}"></property>
 		<property name="loginTimeout" value="${hibernate.c3p0.timeout}"></property>
-	<!-- 	<property name="maxIdleTimeExcessConnections" value="${hibernate.c3p0.maxIdleTimeExcessConnections}"></property> -->
+		<!-- <property name="maxIdleTimeExcessConnections" value="${hibernate.c3p0.maxIdleTimeExcessConnections}"></property> -->
 	</bean>
 	<bean id="cacheRowSetImpl" class="com.sun.rowset.CachedRowSetImpl"/>  
 	<bean class="org.springframework.orm.hibernate5.LocalSessionFactoryBean" id="sessionFactory">
@@ -103,7 +104,6 @@
 				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
 				<prop key="hibernate.hbm2dll.auto">${hibernate.hbm2dll.auto}</prop>
 				<prop key="hibernate.jdbc.batch_size">${hibernate.jdbc.batch_size}</prop>
-				<prop key="hibernate.c3p0.max_size">${hibernate.c3p0.max_size}</prop> 
 				<prop key="hibernate.order_updates">${hibernate.order_updates}</prop>
 				<prop key="hibernate.jdbc.batch_versioned_data">${hibernate.jdbc.batch_versioned_data}</prop>
 				<prop key="hibernate.temp.use_jdbc_metadata_defaults">false</prop>

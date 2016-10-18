@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
@@ -14,7 +13,7 @@ import com.raj.employee.dao.EmployeeDao;
 import com.raj.employee.service.EmployeeService;
 
 @Service
-@Scope(value = "prototype")
+//@Scope(value = "prototype")
 public class EmployeeServiceImpl implements EmployeeService{
 	
 	@Autowired

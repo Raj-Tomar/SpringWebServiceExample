@@ -2,13 +2,12 @@ package com.raj.employee.dao;
 
 import java.util.List;
 
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
 import com.raj.beans.EmployeeBean;
 
 @Repository
-@Scope(value = "prototype")
+//@Scope(value = "prototype")
 public interface EmployeeDao {
 
 	/**

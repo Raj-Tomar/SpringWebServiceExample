@@ -12,14 +12,13 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
 import com.raj.beans.EmployeeBean;
 import com.raj.employee.dao.EmployeeDao;
 
 @Repository
-@Scope(value = "prototype")
+//@Scope(value = "prototype")
 public class EmployeeDaoImpl implements EmployeeDao{
 	
 	@Autowired

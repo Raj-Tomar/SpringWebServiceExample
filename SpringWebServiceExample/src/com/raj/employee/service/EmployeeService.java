@@ -1,10 +1,9 @@
 package com.raj.employee.service;
 
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 @Service
-@Scope(value = "prototype")
+//@Scope(value = "prototype")
 public interface EmployeeService {
 
 	/**
