@@ -83,16 +83,20 @@
 	<bean id="cacheRowSetImpl" class="com.sun.rowset.CachedRowSetImpl"/>  
 	<bean class="org.springframework.orm.hibernate5.LocalSessionFactoryBean" id="sessionFactory">
 		<property name="dataSource" ref="dataSource" />
+		<!-- 
 		<property name="configLocation">
             <value>classpath:hibernate.cfg.xml</value>
         </property>
-		<!-- 
+         -->
+		
 		<property name="annotatedClasses">
 	  		<list>
-	   			<value>com.raj</value>
+	   			<value>com.raj.beans.CityBean</value>
+	   			<value>com.raj.beans.CountryBean</value>
+	   			<value>com.raj.beans.EmployeeBean</value>
 	  		</list>
  		</property> 
- 		-->
+ 		
 	 	<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
@@ -103,6 +107,8 @@
 				<prop key="hibernate.order_updates">${hibernate.order_updates}</prop>
 				<prop key="hibernate.jdbc.batch_versioned_data">${hibernate.jdbc.batch_versioned_data}</prop>
 				<prop key="hibernate.temp.use_jdbc_metadata_defaults">false</prop>
+				<prop key="hibernate.connection.autocommit">${hibernate.connection.autocommit}</prop>
+				<prop key="hibernate.connection.isolation">1</prop>
 				<!-- <prop key="hibernate.order_inserts">true</prop> -->
 			</props>
 		</property>
