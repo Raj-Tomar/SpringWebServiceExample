@@ -1,6 +1,5 @@
 package com.raj.chart.serviceImpl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -31,15 +30,7 @@ public class ChartAndGraphServiceImpl implements ChartAndGraphService{
 		String status = "0";
 		List<CityBean> list = null;
 		try {
-			//list = chartDao.getAllCities();
-			list = new ArrayList<CityBean>();
-			CityBean bean = new CityBean();
-			bean.setCountryCode("1");
-			bean.setDistrict("dist");
-			bean.setId(1);
-			bean.setName("Hyd");
-			bean.setPopulation("234234234");
-			list.add(bean);
+			list = chartDao.getAllCities();
 			responseJson = new JSONObject();
 			if(list.size() > 0){
 				status = "1";
