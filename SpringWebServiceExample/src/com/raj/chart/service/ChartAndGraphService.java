@@ -11,6 +11,12 @@ public interface ChartAndGraphService {
 	 * @param requestData
 	 * @return
 	 */
+	public String getAllCities(String requestData);
+	
+	/**
+	 * @param requestData
+	 * @return
+	 */
 	public String areaWiseCountries(String requestData);
 	
 	/**

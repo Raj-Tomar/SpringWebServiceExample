@@ -13,6 +13,11 @@ import com.raj.dto.KeyValueDto;
 public interface ChartAndGraphDao {
 
 	/**
+	 * @return
+	 */
+	public List<CityBean> getAllCities();
+	
+	/**
 	 * @param requestData
 	 * @return
 	 */
@@ -41,4 +46,5 @@ public interface ChartAndGraphDao {
 	 * @return
 	 */
 	public List<CityBean> stateWisePopulation(String stateName);
+
 }

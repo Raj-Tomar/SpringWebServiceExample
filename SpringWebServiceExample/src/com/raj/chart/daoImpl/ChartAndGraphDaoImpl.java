@@ -3,6 +3,10 @@ package com.raj.chart.daoImpl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -24,6 +28,31 @@ public class ChartAndGraphDaoImpl implements ChartAndGraphDao{
 	private Session session = null;
 	
 	private static Logger LOGGER = Logger.getLogger(ChartAndGraphDaoImpl.class);
+	
+	@Override
+	public List<CityBean> getAllCities() {
+		List<CityBean> list = new ArrayList<CityBean>();
+		try {
+			session = sessionFactory.openSession();
+			// Hibernate 5.2 Criteria
+			CriteriaBuilder builder = session.getCriteriaBuilder();
+			CriteriaQuery<CityBean> criteria = builder.createQuery( CityBean.class );
+			Root<CityBean> root = criteria.from( CityBean.class );
+			criteria.select( root );
+			list = session.createQuery( criteria ).getResultList();
+			LOGGER.info("Total Cities: "+list.size());
+		} 
+		catch (Exception e) {
+			LOGGER.error("Exception: "+e.getMessage());
+			e.printStackTrace();
+		}
+		finally {
+			if(session.isOpen()){
+				session.close();
+			}
+		}
+		return list;
+	}
 	
 	@Override
 	public List<KeyValueDto> areaWiseCountries(String requestData) {
@@ -131,5 +160,6 @@ public class ChartAndGraphDaoImpl implements ChartAndGraphDao{
 		}
 		return list;
 	}
+
 
 }

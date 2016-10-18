@@ -20,6 +20,19 @@ public class ChartAndGraphController {
 	
 	private static Logger LOGGER = Logger.getLogger(ChartAndGraphController.class);
 	
+	@RequestMapping(value="/getAllCities", method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<String> getAllCities(@RequestBody String requestData){
+		ResponseEntity<String> result = null;
+		try {
+			String status = chartService.getAllCities(requestData);
+			result = new ResponseEntity<String>(status, HttpStatus.OK);
+		} catch (Exception e) {
+			LOGGER.error("Exception: "+e.getMessage());
+		}
+		return result;
+	}
+	
 	@RequestMapping(value="/areaWiseCountries", method=RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<String> areaWiseCountries(@RequestBody String requestData){
