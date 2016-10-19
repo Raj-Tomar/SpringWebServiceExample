@@ -87,4 +87,17 @@ public class EmployeeController {
 		return result;
 	}
 	
+	@RequestMapping(value="/saveOrUpdateDepartment", method=RequestMethod.POST)
+	public ResponseEntity<String> saveOrUpdateDepartment(@RequestBody String requestData){
+		logger.info("saveOrUpdateDepartment in controller");
+		ResponseEntity<String> result = null;
+		try {
+			String status = employeeService.saveOrUpdateDepartment(requestData);
+			result = new ResponseEntity<String>(status, HttpStatus.OK);
+		} catch (Exception e) {
+			logger.error("Exception: "+e.getMessage());
+		}
+		return result;
+	}
+	
 }

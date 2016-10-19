@@ -65,6 +65,7 @@
      -->
      
      <!-- Connection Pooling Configuration Starts-->
+     
      <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
      	<!-- Database Connection -->
 		<property name="driverClass" value="${jdbc.connection.driver_class}" />
@@ -79,22 +80,24 @@
 		<property name="idleConnectionTestPeriod" value="${hibernate.c3p0.idle_test_period}"></property>
 		<property name="initialPoolSize" value="${hibernate.c3p0.initialPoolSize}"></property>
 		<property name="loginTimeout" value="${hibernate.c3p0.timeout}"></property>
-		<!-- <property name="maxIdleTimeExcessConnections" value="${hibernate.c3p0.maxIdleTimeExcessConnections}"></property> -->
+		<property name="maxIdleTimeExcessConnections" value="${hibernate.c3p0.maxIdleTimeExcessConnections}"></property>
 	</bean>
-	<bean id="cacheRowSetImpl" class="com.sun.rowset.CachedRowSetImpl"/>  
+	<!-- <bean id="cacheRowSetImpl" class="com.sun.rowset.CachedRowSetImpl"/> -->  
+	
 	<bean class="org.springframework.orm.hibernate5.LocalSessionFactoryBean" id="sessionFactory">
 		<property name="dataSource" ref="dataSource" />
-		<!-- 
+		
 		<property name="configLocation">
             <value>classpath:hibernate.cfg.xml</value>
         </property>
-         -->
+        
 		
 		<property name="annotatedClasses">
 	  		<list>
 	   			<value>com.raj.beans.CityBean</value>
 	   			<value>com.raj.beans.CountryBean</value>
 	   			<value>com.raj.beans.EmployeeBean</value>
+	   			<value>com.raj.beans.DepartmentBean</value>
 	  		</list>
  		</property> 
  		
@@ -109,10 +112,11 @@
 				<prop key="hibernate.temp.use_jdbc_metadata_defaults">false</prop>
 				<prop key="hibernate.connection.autocommit">${hibernate.connection.autocommit}</prop>
 				<prop key="hibernate.connection.isolation">1</prop>
-				<!-- <prop key="hibernate.order_inserts">true</prop> -->
+				<prop key="hibernate.order_inserts">true</prop>
 			</props>
 		</property>
 	</bean>
+	
      <!-- Connection Pooling Configuration Ends-->
      
     <tx:annotation-driven />

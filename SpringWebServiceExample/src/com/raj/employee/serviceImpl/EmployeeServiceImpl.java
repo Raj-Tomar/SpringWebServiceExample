@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
+import com.raj.beans.DepartmentBean;
 import com.raj.beans.EmployeeBean;
 import com.raj.employee.dao.EmployeeDao;
 import com.raj.employee.service.EmployeeService;
@@ -102,6 +103,24 @@ public class EmployeeServiceImpl implements EmployeeService{
 			responseJson = new JSONObject();
 			responseJson.put("status", status);
 		} catch (Exception e) {
+			logger.error("Exception: "+e.getMessage());
+		}
+		return responseJson.toString();
+	}
+
+	@Override
+	public String saveOrUpdateDepartment(String requestData) {
+		logger.info("saveOrUpdateDepartment in ServiceImpl");
+		try {
+			requestJson = new JSONObject(requestData);
+			JSONObject jObj = requestJson.getJSONObject("requestData");
+			gson = new Gson();
+			DepartmentBean bean = gson.fromJson(jObj.get("dept").toString(), DepartmentBean.class);
+			String status = employeeDao.saveOrUpdateDepartment(bean);
+			responseJson = new JSONObject();
+			responseJson.put("status", status);
+		} catch (Exception e) {
+			e.printStackTrace();
 			logger.error("Exception: "+e.getMessage());
 		}
 		return responseJson.toString();

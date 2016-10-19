@@ -8,6 +8,7 @@
         <mapping class="com.raj.beans.EmployeeBean" />
         <mapping class="com.raj.beans.CountryBean" />
         <mapping class="com.raj.beans.CityBean" />
+        <mapping class="com.raj.beans.DepartmentBean" />
     </session-factory>
         
 </hibernate-configuration>

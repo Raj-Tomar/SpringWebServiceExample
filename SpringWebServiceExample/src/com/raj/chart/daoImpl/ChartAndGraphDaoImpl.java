@@ -24,12 +24,12 @@ public class ChartAndGraphDaoImpl implements ChartAndGraphDao{
 	
 	@Autowired
 	private SessionFactory sessionFactory;
-	private Session session = null;
 	
 	private static Logger LOGGER = Logger.getLogger(ChartAndGraphDaoImpl.class);
 	
 	@Override
 	public List<CityBean> getAllCities() {
+		Session session = null;
 		List<CityBean> list = new ArrayList<CityBean>();
 		try {
 			session = sessionFactory.openSession();
@@ -74,6 +74,7 @@ public class ChartAndGraphDaoImpl implements ChartAndGraphDao{
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<String> getAllCountryCode(String requestData) {
+		Session session = null;
 		List<String> list = new ArrayList<String>();
 		try {
 			session = sessionFactory.openSession();
@@ -95,6 +96,7 @@ public class ChartAndGraphDaoImpl implements ChartAndGraphDao{
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<CityBean> cityWisePopulation(String countryCode) {
+		Session session = null;
 		List<CityBean> list = new ArrayList<CityBean>();
 		try {
 			session = sessionFactory.openSession();
@@ -118,6 +120,7 @@ public class ChartAndGraphDaoImpl implements ChartAndGraphDao{
 	@SuppressWarnings({ "unchecked" })
 	@Override
 	public List<String> getStateNames(String requestData) {
+		Session session = null;
 		List<String> list = new ArrayList<String>();
 		try {
 			session = sessionFactory.openSession();
@@ -140,6 +143,7 @@ public class ChartAndGraphDaoImpl implements ChartAndGraphDao{
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<CityBean> stateWisePopulation(String stateName) {
+		Session session = null;
 		List<CityBean> list = new ArrayList<CityBean>();
 		try {
 			session = sessionFactory.openSession();

@@ -25,5 +25,10 @@ public interface EmployeeService {
 	 * @return
 	 */
 	public String deleteEmployee(String requestData);
+	/**
+	 * @param requestData
+	 * @return
+	 */
+	public String saveOrUpdateDepartment(String requestData);
 	
 }

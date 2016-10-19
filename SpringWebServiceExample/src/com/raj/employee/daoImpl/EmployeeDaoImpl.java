@@ -11,9 +11,11 @@ import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.resource.transaction.spi.TransactionStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.raj.beans.DepartmentBean;
 import com.raj.beans.EmployeeBean;
 import com.raj.employee.dao.EmployeeDao;
 
@@ -23,26 +25,31 @@ public class EmployeeDaoImpl implements EmployeeDao{
 	
 	@Autowired
 	private SessionFactory sessionFactory;
-	private Session session;
-	private Transaction tx;
 	
 	private static Logger LOGGER = Logger.getLogger(EmployeeDaoImpl.class);
 
 	@Override
 	public String saveOrUpdateEmployee(EmployeeBean bean) {
 		String status = "0";
+		Session session = null;
+		Transaction tx = null;
 		try{
 			session = sessionFactory.openSession();
 			tx = session.beginTransaction();
+			TransactionStatus transactionStatus = tx.getStatus();
 			if(null == bean.getId()){
 				session.save(bean);
-				tx.commit();
-				status = "1";
+				if(!transactionStatus.equals(TransactionStatus.COMMITTED )){
+					tx.commit();
+					status = "1";
+			    }
 				LOGGER.info("Employee Save Status: "+status);
 			}else{
 				session.update(bean);
-				tx.commit();
-				status = "1";
+				if(!transactionStatus.equals(TransactionStatus.COMMITTED )){
+					tx.commit();
+					status = "1";
+			    }
 				LOGGER.info("Employee Update Status: "+status);
 			}
 		}
@@ -61,10 +68,10 @@ public class EmployeeDaoImpl implements EmployeeDao{
 	@Override
 	//@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	public List<EmployeeBean> getEmployeeList() {
+		Session session = null;
 		List<EmployeeBean> list = new ArrayList<EmployeeBean>();
 		try{
 			session = sessionFactory.openSession();
-			tx = session.beginTransaction();
 			
 			// Hibernate 5.2 Criteria
 			CriteriaBuilder builder = session.getCriteriaBuilder();
@@ -93,10 +100,10 @@ public class EmployeeDaoImpl implements EmployeeDao{
 
 	@Override
 	public EmployeeBean getEmployeeById(Integer id) {
+		Session session = null;
 		EmployeeBean bean = null;
 		try {
 			session = sessionFactory.openSession();
-			tx = session.beginTransaction();
 			bean = session.get(EmployeeBean.class, id);
 		} 
 		catch (Exception e) {
@@ -112,6 +119,8 @@ public class EmployeeDaoImpl implements EmployeeDao{
 
 	@Override
 	public String deleteEmployee(Integer id) {
+		Session session = null;
+		Transaction tx = null;
 		String status = "0";
 		try {
 			session = sessionFactory.openSession();
@@ -127,6 +136,44 @@ public class EmployeeDaoImpl implements EmployeeDao{
 			LOGGER.error("Exception: "+e.getMessage());
 		}
 		return status;
+	}
+
+	@Override
+	public String saveOrUpdateDepartment(DepartmentBean bean) {
+		String status = "0";
+		Session session = null;
+		Transaction tx = null;
+		try{
+			session = sessionFactory.openSession();
+			tx = session.beginTransaction();
+			TransactionStatus transactionStatus = tx.getStatus();
+			if(null == bean.getId()){
+				session.save(bean);
+				if(!transactionStatus.equals(TransactionStatus.COMMITTED )){
+					tx.commit();
+					status = "1";
+			    }
+				LOGGER.info("Department Save Status: "+status);
+			}else{
+				session.update(bean);
+				if(!transactionStatus.equals(TransactionStatus.COMMITTED )){
+					tx.commit();
+					status = "1";
+			    }
+				LOGGER.info("Department Update Status: "+status);
+			}
+		}
+		catch(Exception e){
+			tx.rollback();
+			e.printStackTrace();
+		}
+		finally{
+			if(session.isOpen()){
+				session.close();
+			}
+		}
+		return status;
+	
 	}
 
 }
