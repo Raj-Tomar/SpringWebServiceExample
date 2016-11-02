@@ -1,4 +1,4 @@
-package com.raj.chart.service;
+package com.raj.service;
 
 import org.springframework.stereotype.Service;
 

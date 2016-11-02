@@ -18,18 +18,11 @@
 
 	<context:annotation-config />
  	<context:component-scan base-package="com.raj.beans"/>
- 	<context:component-scan base-package="com.raj.dto"/>
- 	<context:component-scan base-package="com.raj.util"/>
- 	<context:component-scan base-package="com.raj.chart.controller"/>
- 	<context:component-scan base-package="com.raj.chart.service"/>
- 	<context:component-scan base-package="com.raj.chart.serviceImpl"/>
- 	<context:component-scan base-package="com.raj.chart.dao"/>
- 	<context:component-scan base-package="com.raj.chart.daoImpl"/>
- 	<context:component-scan base-package="com.raj.employee.controller"/>
- 	<context:component-scan base-package="com.raj.employee.service"/>
- 	<context:component-scan base-package="com.raj.employee.serviceImpl"/>
- 	<context:component-scan base-package="com.raj.employee.dao"/>
- 	<context:component-scan base-package="com.raj.employee.daoImpl"/>
+ 	<context:component-scan base-package="com.raj.controller"/>
+ 	<context:component-scan base-package="com.raj.service"/>
+ 	<context:component-scan base-package="com.raj.serviceImpl"/>
+ 	<context:component-scan base-package="com.raj.dao"/>
+ 	<context:component-scan base-package="com.raj.daoImpl"/>
  	
  	<context:property-placeholder location="classpath:hibernate.properties" />
  	<!-- 

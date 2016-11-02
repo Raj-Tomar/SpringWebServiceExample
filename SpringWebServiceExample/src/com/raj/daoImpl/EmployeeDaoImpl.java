@@ -1,4 +1,4 @@
-package com.raj.employee.daoImpl;
+package com.raj.daoImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Repository;
 
 import com.raj.beans.DepartmentBean;
 import com.raj.beans.EmployeeBean;
-import com.raj.employee.dao.EmployeeDao;
+import com.raj.dao.EmployeeDao;
 
 @Repository
 //@Scope(value = "prototype")

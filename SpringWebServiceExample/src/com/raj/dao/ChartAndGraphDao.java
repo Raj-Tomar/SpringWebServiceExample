@@ -1,4 +1,4 @@
-package com.raj.chart.dao;
+package com.raj.dao;
 
 import java.util.List;
 

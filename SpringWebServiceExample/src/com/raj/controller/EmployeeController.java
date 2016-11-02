@@ -1,4 +1,4 @@
-package com.raj.employee.controller;
+package com.raj.controller;
 
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.raj.employee.service.EmployeeService;
+import com.raj.service.EmployeeService;
 
 
 @RestController

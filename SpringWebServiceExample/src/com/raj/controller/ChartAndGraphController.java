@@ -1,4 +1,4 @@
-package com.raj.chart.controller;
+package com.raj.controller;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.raj.chart.service.ChartAndGraphService;
+import com.raj.service.ChartAndGraphService;
+
 
 @Controller
 public class ChartAndGraphController {

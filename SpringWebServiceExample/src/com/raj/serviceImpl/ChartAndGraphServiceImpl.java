@@ -1,4 +1,4 @@
-package com.raj.chart.serviceImpl;
+package com.raj.serviceImpl;
 
 import java.util.List;
 
@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.raj.beans.CityBean;
-import com.raj.chart.dao.ChartAndGraphDao;
-import com.raj.chart.service.ChartAndGraphService;
+import com.raj.dao.ChartAndGraphDao;
 import com.raj.dto.KeyValueDto;
+import com.raj.service.ChartAndGraphService;
 
 @Service
 //@Scope(value = "prototype")

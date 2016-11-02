@@ -1,4 +1,4 @@
-package com.raj.employee.serviceImpl;
+package com.raj.serviceImpl;
 
 import java.util.List;
 
@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 import com.google.gson.Gson;
 import com.raj.beans.DepartmentBean;
 import com.raj.beans.EmployeeBean;
-import com.raj.employee.dao.EmployeeDao;
-import com.raj.employee.service.EmployeeService;
+import com.raj.dao.EmployeeDao;
+import com.raj.service.EmployeeService;
 
 @Service
 //@Scope(value = "prototype")
